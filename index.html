@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sereno - Tu Espacio de Tareas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <div class="header-info">
+                <h1>Recuerdos</h1>
+                <p id="current-date" class="date-display">Date</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-value" id="total-tasks">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="completed-tasks">0</span>
+                    <span class="stat-label">Hecho</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="input-section">
+            <form id="todo-form">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-pen input-icon"></i>
+                    <input type="text" id="todo-input" placeholder="¿Qué tareas tienes para hoy?" autocomplete="off"
+                        required>
+                    <button type="submit" class="add-btn" aria-label="Añadir tarea">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="filters-section">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="active">Activas</button>
+            <button class="filter-btn" data-filter="completed">Completadas</button>
+        </div>
+
+        <div class="todo-list-container">
+            <ul id="todo-list" class="todo-list">
+                <!-- Tasks will be dynamically populated here -->
+            </ul>
+
+            <div id="empty-state" class="empty-state">
+                <div class="empty-icon">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+                <p>Tu mente está despejada. ¡Añade una tarea!</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
