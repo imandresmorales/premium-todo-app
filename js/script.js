@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const completedTasksEl = document.getElementById('completed-tasks');
     const filterBtns = document.querySelectorAll('.filter-btn');
     const currentDateEl = document.getElementById('current-date');
+    const themeToggleBtn = document.getElementById('theme-toggle');
 
     // State
     let todos = [];
@@ -191,6 +192,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Theme Management
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem('serenoTheme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.body.classList.add('dark-theme');
+            themeToggleBtn.setAttribute('aria-pressed', 'true');
+        } else {
+            themeToggleBtn.setAttribute('aria-pressed', 'false');
+        }
+    };
+
+    themeToggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-theme');
+        localStorage.setItem('serenoTheme', isDark ? 'dark' : 'light');
+        themeToggleBtn.setAttribute('aria-pressed', isDark.toString());
+    });
+
     // Utility to prevent XSS
     const escapeHTML = (str) => {
         return str.replace(/[&<>'"]/g, 
@@ -205,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Initialize
+    initTheme();
     setDate();
     renderTodos();
 });
