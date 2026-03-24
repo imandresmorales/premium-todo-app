@@ -1,7 +1,7 @@
 :root {
     --bg-color: #FAF9F6; /* Off-white cream */
     --text-primary: #5A5A66;
-    --text-secondary: #9EA3B0;
+    --text-secondary: #7A7F8E; /* Improved contrast for A11Y */
     --container-bg: #FFFFFF;
     --container-shadow: 0 20px 50px rgba(181, 192, 208, 0.25);
     --accent-primary: #A2D2FF; /* Pastel Blue */
@@ -19,7 +19,7 @@
 body.dark-theme {
     --bg-color: #121216;
     --text-primary: #F0F2F5;
-    --text-secondary: #8E94A3;
+    --text-secondary: #A5ACB8; /* Improved contrast for A11Y */
     --container-bg: #1E1E24;
     --container-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     --input-bg: #2A2B36;
@@ -313,9 +313,14 @@ body.dark-theme .theme-toggle .icon-sun {
     padding: 10px 0;
     border-radius: 14px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.filter-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: -2px;
 }
 
 .filter-btn:hover {
@@ -323,9 +328,9 @@ body.dark-theme .theme-toggle .icon-sun {
 }
 
 .filter-btn.active {
-    background: #FFFFFF;
-    color: var(--text-primary);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    background: var(--text-primary);
+    color: var(--container-bg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Todo List */
