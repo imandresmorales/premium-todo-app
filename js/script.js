@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const currentDateEl = document.getElementById('current-date');
     const themeToggleBtn = document.getElementById('theme-toggle');
+    const btnDefault = document.getElementById('btn-default');
+    const btnBootstrap = document.getElementById('btn-bootstrap');
+    const defaultCss = document.getElementById('default-css');
+    const bootstrapCss = document.getElementById('bootstrap-css');
+    const bootstrapExtrasCss = document.getElementById('bootstrap-extras-css');
 
     // State
     let todos = [];
@@ -92,16 +97,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filteredTodos.forEach(todo => {
             const li = document.createElement('li');
-            li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+            const completedClasses = todo.completed ? 'completed bg-light text-muted' : '';
+            li.className = `todo-item list-group-item d-flex align-items-center border-0 mb-2 rounded shadow-sm ${completedClasses}`;
             li.dataset.id = todo.id;
 
-            li.innerHTML = `
+            let checkboxMarkup = `
                 <div class="checkbox-wrapper">
-                    <input type="checkbox" id="check-${todo.id}" class="todo-checkbox" ${todo.completed ? 'checked' : ''}>
+                    <input type="checkbox" id="check-${todo.id}" class="todo-checkbox form-check-input mt-0" ${todo.completed ? 'checked' : ''}>
                     <label for="check-${todo.id}" class="checkbox-custom"></label>
                 </div>
-                <span class="todo-text">${escapeHTML(todo.text)}</span>
-                <button class="delete-btn" aria-label="Eliminar tarea">
+            `;
+            
+            li.innerHTML = `
+                ${checkboxMarkup}
+                <span class="todo-text text-break fw-semibold">${escapeHTML(todo.text)}</span>
+                <button class="delete-btn btn btn-sm rounded" aria-label="Eliminar tarea">
                     <i class="fa-regular fa-trash-can"></i>
                 </button>
             `;
@@ -170,8 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Update active state
-            filterBtns.forEach(b => b.classList.remove('active'));
+            filterBtns.forEach(b => {
+                b.classList.remove('active');
+                if (document.body.classList.contains('bootstrap-mode')) {
+                    b.classList.add('text-muted');
+                    b.classList.remove('bg-dark', 'text-white');
+                }
+            });
             btn.classList.add('active');
+            if (document.body.classList.contains('bootstrap-mode')) {
+                btn.classList.remove('text-muted');
+                btn.classList.add('bg-dark', 'text-white');
+            }
             
             // Set current filter
             currentFilter = btn.dataset.filter;
@@ -211,6 +231,58 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggleBtn.setAttribute('aria-pressed', isDark.toString());
     });
 
+    // Design Switcher Management
+    const initDesign = () => {
+        const savedDesign = localStorage.getItem('serenoDesign') || 'default';
+        setDesign(savedDesign);
+    };
+
+    const setDesign = (design) => {
+        if (design === 'bootstrap') {
+            document.body.classList.add('bootstrap-mode');
+            defaultCss.disabled = true;
+            bootstrapCss.disabled = false;
+            bootstrapExtrasCss.disabled = false;
+            
+            btnBootstrap.classList.add('active');
+            btnDefault.classList.remove('active');
+            
+            // Update filter buttons appearance for bootstrap
+            filterBtns.forEach(b => {
+                if (b.classList.contains('active')) {
+                    b.classList.add('bg-dark', 'text-white');
+                    b.classList.remove('text-muted');
+                } else {
+                    b.classList.add('text-muted');
+                    b.classList.remove('bg-dark', 'text-white');
+                }
+            });
+        } else {
+            document.body.classList.remove('bootstrap-mode');
+            defaultCss.disabled = false;
+            bootstrapCss.disabled = true;
+            bootstrapExtrasCss.disabled = true;
+            
+            btnDefault.classList.add('active');
+            btnBootstrap.classList.remove('active');
+            
+            // Remove bootstrap specific utility classes from filter buttons
+            filterBtns.forEach(b => {
+                b.classList.remove('bg-dark', 'text-white');
+            });
+        }
+    };
+
+    btnDefault.addEventListener('click', () => {
+        setDesign('default');
+        localStorage.setItem('serenoDesign', 'default');
+    });
+
+    btnBootstrap.addEventListener('click', () => {
+        setDesign('bootstrap');
+        localStorage.setItem('serenoDesign', 'bootstrap');
+    });
+
     // Utility to prevent XSS
     const escapeHTML = (str) => {
         return str.replace(/[&<>'"]/g, 
@@ -226,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     initTheme();
+    initDesign();
     setDate();
     renderTodos();
 });
