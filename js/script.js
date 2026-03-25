@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filteredTodos.forEach(todo => {
             const li = document.createElement('li');
-            const completedClasses = todo.completed ? 'completed bg-light text-muted' : '';
+            const completedClasses = todo.completed ? 'completed bg-body-tertiary text-muted' : '';
             li.className = `todo-item list-group-item d-flex align-items-center border-0 mb-2 rounded shadow-sm ${completedClasses}`;
             li.dataset.id = todo.id;
 
@@ -220,8 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
             document.body.classList.add('dark-theme');
             themeToggleBtn.setAttribute('aria-pressed', 'true');
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
         } else {
             themeToggleBtn.setAttribute('aria-pressed', 'false');
+            document.documentElement.setAttribute('data-bs-theme', 'light');
         }
     };
 
@@ -229,6 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDark = document.body.classList.toggle('dark-theme');
         localStorage.setItem('serenoTheme', isDark ? 'dark' : 'light');
         themeToggleBtn.setAttribute('aria-pressed', isDark.toString());
+        
+        if (isDark) {
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-bs-theme', 'light');
+        }
     });
 
     // Design Switcher Management

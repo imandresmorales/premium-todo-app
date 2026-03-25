@@ -1,6 +1,5 @@
 /* Tweaks for Bootstrap Mode */
 body.bootstrap-mode {
-    background-color: #f8f9fa;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -10,7 +9,6 @@ body.bootstrap-mode {
 }
 
 body.bootstrap-mode .background-animation { display: none !important; }
-body.bootstrap-mode .theme-toggle { display: none !important; }
 
 body.bootstrap-mode .app-container {
     max-width: 500px;
