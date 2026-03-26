@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const btnDefault = document.getElementById('btn-default');
     const btnBootstrap = document.getElementById('btn-bootstrap');
+    const btnMaterial = document.getElementById('btn-material');
     const defaultCss = document.getElementById('default-css');
     const bootstrapCss = document.getElementById('bootstrap-css');
     const bootstrapExtrasCss = document.getElementById('bootstrap-extras-css');
+    const materialCss = document.getElementById('material-css');
+    const materialExtrasCss = document.getElementById('material-extras-css');
 
     // State
     let todos = [];
@@ -185,12 +188,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (document.body.classList.contains('bootstrap-mode')) {
                     b.classList.add('text-muted');
                     b.classList.remove('bg-dark', 'text-white');
+                } else if (document.body.classList.contains('material-mode')) {
+                    b.classList.add('text-muted');
+                    b.classList.remove('bg-primary', 'text-white');
                 }
             });
             btn.classList.add('active');
             if (document.body.classList.contains('bootstrap-mode')) {
                 btn.classList.remove('text-muted');
                 btn.classList.add('bg-dark', 'text-white');
+            } else if (document.body.classList.contains('material-mode')) {
+                btn.classList.remove('text-muted');
+                btn.classList.add('bg-primary', 'text-white');
             }
             
             // Set current filter
@@ -246,14 +255,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const setDesign = (design) => {
+        // Reset classes
+        document.body.classList.remove('bootstrap-mode', 'material-mode');
+        
+        // Reset styles
+        defaultCss.disabled = true;
+        bootstrapCss.disabled = true;
+        bootstrapExtrasCss.disabled = true;
+        materialCss.disabled = true;
+        materialExtrasCss.disabled = true;
+        
+        // Reset buttons
+        btnDefault.classList.remove('active');
+        btnBootstrap.classList.remove('active');
+        btnMaterial.classList.remove('active');
+
         if (design === 'bootstrap') {
             document.body.classList.add('bootstrap-mode');
-            defaultCss.disabled = true;
             bootstrapCss.disabled = false;
             bootstrapExtrasCss.disabled = false;
-            
             btnBootstrap.classList.add('active');
-            btnDefault.classList.remove('active');
             
             // Update filter buttons appearance for bootstrap
             filterBtns.forEach(b => {
@@ -265,18 +286,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     b.classList.remove('bg-dark', 'text-white');
                 }
             });
-        } else {
-            document.body.classList.remove('bootstrap-mode');
-            defaultCss.disabled = false;
-            bootstrapCss.disabled = true;
-            bootstrapExtrasCss.disabled = true;
+        } else if (design === 'material') {
+            document.body.classList.add('material-mode');
+            materialCss.disabled = false;
+            materialExtrasCss.disabled = false;
+            btnMaterial.classList.add('active');
             
-            btnDefault.classList.add('active');
-            btnBootstrap.classList.remove('active');
-            
-            // Remove bootstrap specific utility classes from filter buttons
+            // Update filter buttons for material
             filterBtns.forEach(b => {
-                b.classList.remove('bg-dark', 'text-white');
+                if (b.classList.contains('active')) {
+                    b.classList.add('bg-primary', 'text-white');
+                    b.classList.remove('text-muted');
+                } else {
+                    b.classList.add('text-muted');
+                    b.classList.remove('bg-primary', 'text-white');
+                }
+            });
+        } else {
+            defaultCss.disabled = false;
+            btnDefault.classList.add('active');
+            
+            // Remove specific utility classes from filter buttons
+            filterBtns.forEach(b => {
+                b.classList.remove('bg-dark', 'text-white', 'bg-primary');
             });
         }
     };
@@ -289,6 +321,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnBootstrap.addEventListener('click', () => {
         setDesign('bootstrap');
         localStorage.setItem('serenoDesign', 'bootstrap');
+    });
+
+    btnMaterial.addEventListener('click', () => {
+        setDesign('material');
+        localStorage.setItem('serenoDesign', 'material');
     });
 
     // Utility to prevent XSS
