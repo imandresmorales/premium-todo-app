@@ -66,14 +66,30 @@ body.material-mode #todo-input {
     border-radius: 4px 4px 0 0 !important;
     border: none !important;
     border-bottom: 2px solid #ccc !important;
-    background: var(--bs-tertiary-bg);
+    background: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
     transition: border-color 0.3s;
     box-shadow: none !important;
 }
 
 body.material-mode #todo-input:focus {
     border-bottom-color: var(--bs-primary) !important;
-    background: var(--bs-body-bg);
+    background: var(--bs-body-bg) !important;
+}
+
+body.material-mode.dark-theme #todo-input {
+    color: #f8f9fa !important;
+    background: #2b2b2b !important;
+    border-bottom: 2px solid #555 !important;
+}
+
+body.material-mode.dark-theme #todo-input:focus {
+    background: #1e1e1e !important;
+    border-bottom-color: var(--bs-primary) !important;
+}
+
+body.material-mode.dark-theme #todo-input::placeholder {
+    color: #adb5bd !important;
 }
 
 /* Add Button (Floating Action Button style) */
