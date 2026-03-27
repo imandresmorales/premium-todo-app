@@ -12,11 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDefault = document.getElementById('btn-default');
     const btnBootstrap = document.getElementById('btn-bootstrap');
     const btnMaterial = document.getElementById('btn-material');
+    const btnChakra = document.getElementById('btn-chakra');
     const defaultCss = document.getElementById('default-css');
     const bootstrapCss = document.getElementById('bootstrap-css');
     const bootstrapExtrasCss = document.getElementById('bootstrap-extras-css');
     const materialCss = document.getElementById('material-css');
     const materialExtrasCss = document.getElementById('material-extras-css');
+    const chakraExtrasCss = document.getElementById('chakra-extras-css');
 
     // State
     let todos = [];
@@ -191,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (document.body.classList.contains('material-mode')) {
                     b.classList.add('text-muted');
                     b.classList.remove('bg-primary', 'text-white');
+                } else if (document.body.classList.contains('chakra-mode')) {
+                    b.classList.add('text-muted');
+                    b.classList.remove('chakra-active');
                 }
             });
             btn.classList.add('active');
@@ -200,6 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (document.body.classList.contains('material-mode')) {
                 btn.classList.remove('text-muted');
                 btn.classList.add('bg-primary', 'text-white');
+            } else if (document.body.classList.contains('chakra-mode')) {
+                btn.classList.remove('text-muted');
+                btn.classList.add('chakra-active');
             }
             
             // Set current filter
@@ -256,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setDesign = (design) => {
         // Reset classes
-        document.body.classList.remove('bootstrap-mode', 'material-mode');
+        document.body.classList.remove('bootstrap-mode', 'material-mode', 'chakra-mode');
         
         // Reset styles
         defaultCss.disabled = true;
@@ -264,11 +272,13 @@ document.addEventListener('DOMContentLoaded', () => {
         bootstrapExtrasCss.disabled = true;
         materialCss.disabled = true;
         materialExtrasCss.disabled = true;
+        chakraExtrasCss.disabled = true;
         
         // Reset buttons
         btnDefault.classList.remove('active');
         btnBootstrap.classList.remove('active');
         btnMaterial.classList.remove('active');
+        btnChakra.classList.remove('active');
 
         if (design === 'bootstrap') {
             document.body.classList.add('bootstrap-mode');
@@ -302,13 +312,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     b.classList.remove('bg-primary', 'text-white');
                 }
             });
+        } else if (design === 'chakra') {
+            document.body.classList.add('chakra-mode');
+            chakraExtrasCss.disabled = false;
+            btnChakra.classList.add('active');
+            
+            // Update filter buttons for chakra
+            filterBtns.forEach(b => {
+                if (b.classList.contains('active')) {
+                    b.classList.add('chakra-active');
+                    b.classList.remove('text-muted');
+                } else {
+                    b.classList.add('text-muted');
+                    b.classList.remove('chakra-active');
+                }
+            });
         } else {
             defaultCss.disabled = false;
             btnDefault.classList.add('active');
             
             // Remove specific utility classes from filter buttons
             filterBtns.forEach(b => {
-                b.classList.remove('bg-dark', 'text-white', 'bg-primary');
+                b.classList.remove('bg-dark', 'text-white', 'bg-primary', 'chakra-active');
             });
         }
     };
@@ -326,6 +351,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnMaterial.addEventListener('click', () => {
         setDesign('material');
         localStorage.setItem('serenoDesign', 'material');
+    });
+
+    btnChakra.addEventListener('click', () => {
+        setDesign('chakra');
+        localStorage.setItem('serenoDesign', 'chakra');
     });
 
     // Utility to prevent XSS
