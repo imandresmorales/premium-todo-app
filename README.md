@@ -4,6 +4,7 @@
 
 ## 🚀 Características
 
+- **Múltiples Diseños de Interfaz:** Cambia dinámicamente entre Diseño por Defecto (Glassmorphism), Bootstrap, Material UI y Chakra UI con un solo clic.
 - **Diseño Glassmorphism & Animaciones:** Disfruta de una interfaz moderna con orbes flotantes y transiciones suaves.
 - **Gestión de Tareas Completa:** Añade, elimina y marca tareas como completadas.
 - **Filtrado Avanzado:** Visualiza todas tus tareas, solo las activas o aquellas que ya has completado.
@@ -22,10 +23,13 @@ premium-todo-app/
 │
 ├── index.html       # Estructura principal, accesibilidad e importaciones esenciales
 ├── css/
-│   └── style.css    # Variables CSS, estilos principales, responsividad y animaciones keyframes
+│   ├── style.css             # Tema base (Glassmorphism), estilos principales y animaciones
+│   ├── bootstrap-extras.css  # Tema y ajustes específicos para diseño Bootstrap
+│   ├── material-extras.css   # Tema y ajustes integrados para diseño Material UI
+│   └── chakra-extras.css     # Simulación de estilos y componentes de Chakra UI
 ├── js/
-│   └── script.js    # Lógica de la app, manejo del DOM, seguridad de entradas y LocalStorage
-└── README.md        # Documentación de The Project
+│   └── script.js    # Lógica de la app, manejo de temas, eventos locales y almacenamiento
+└── README.md        # Documentación del Proyecto
 ```
 
 ## 🛠️ Tecnologías Utilizadas
