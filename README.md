@@ -64,13 +64,14 @@ Este es un proyecto estático sin la necesidad de dependencias del lado del back
 
 ## 🤝 Contribuciones
 
-Las contribuciones, los reportes de bugs (issues) y las solicitudes de características siempre son bienvenidas. 
+Las contribuciones, los reportes de bugs (issues) y las solicitudes de características siempre son bienvenidas.
 
-1. Realiza el *Fork* del proyecto
+1. Realiza el _Fork_ del proyecto
 2. Crea una rama para tu Feature (`git checkout -b feature/AmazingFeature`)
 3. Haz Commit a tus cambios (`git commit -m 'Add some AmazingFeature'`)
 4. Haz Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
 ---
+
 _Creado con dedicación para ofrecerte el mejor gestor de tareas._

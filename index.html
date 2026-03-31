@@ -1,122 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sereno - Tu Espacio de Tareas</title>
-    <link id="default-css" rel="stylesheet" href="css/style.css?v=8">
-    <link id="bootstrap-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" disabled>
-    <link id="bootstrap-extras-css" rel="stylesheet" href="css/bootstrap-extras.css?v=8" disabled>
+    <link id="default-css" rel="stylesheet" href="css/style.css?v=8" />
+    <link
+      id="bootstrap-css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+      disabled
+    />
+    <link
+      id="bootstrap-extras-css"
+      rel="stylesheet"
+      href="css/bootstrap-extras.css?v=8"
+      disabled
+    />
     <!-- Material UI (Bootswatch Materia for Bootstrap classes compatibility) -->
-    <link id="material-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/materia/bootstrap.min.css" integrity="sha384-4rWaAnDqqE1hboIQmZRLhJUMmf7ML4BbC0tasSyXuxxcoUgfn2qWT5AfVG04Of1z" crossorigin="anonymous" disabled>
-    <link id="material-extras-css" rel="stylesheet" href="css/material-extras.css?v=8" disabled>
+    <link
+      id="material-css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/materia/bootstrap.min.css"
+      integrity="sha384-4rWaAnDqqE1hboIQmZRLhJUMmf7ML4BbC0tasSyXuxxcoUgfn2qWT5AfVG04Of1z"
+      crossorigin="anonymous"
+      disabled
+    />
+    <link
+      id="material-extras-css"
+      rel="stylesheet"
+      href="css/material-extras.css?v=8"
+      disabled
+    />
     <!-- Chakra UI (Custom CSS simulation) -->
-    <link id="chakra-extras-css" rel="stylesheet" href="css/chakra-extras.css?v=8" disabled>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      id="chakra-extras-css"
+      rel="stylesheet"
+      href="css/chakra-extras.css?v=8"
+      disabled
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0"
+      crossorigin="anonymous"
+    />
     <style>
-        .design-btn-container {
-            position: absolute;
-            top: 15px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            z-index: 1000;
-        }
-        .design-btn {
-            padding: 8px 16px;
-            margin: 0 4px;
-            border: 1px solid #666;
-            border-radius: 20px;
-            background: #fff;
-            color: #333;
-            cursor: pointer;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .design-btn.active {
-            background: #333;
-            color: #fff;
-            border-color: #333;
-        }
+      .design-btn-container {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;
+      }
+      .design-btn {
+        padding: 8px 16px;
+        margin: 0 4px;
+        border: 1px solid #666;
+        border-radius: 20px;
+        background: #fff;
+        color: #333;
+        cursor: pointer;
+        font-family: "Quicksand", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      .design-btn.active {
+        background: #333;
+        color: #fff;
+        border-color: #333;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="design-btn-container">
-        <button id="btn-default" class="design-btn active">Diseño por Defecto</button>
-        <button id="btn-bootstrap" class="design-btn">Diseño Bootstrap</button>
-        <button id="btn-material" class="design-btn">Diseño Material UI</button>
-        <button id="btn-chakra" class="design-btn">Diseño Chakra UI</button>
+      <button id="btn-default" class="design-btn active">
+        Diseño por Defecto
+      </button>
+      <button id="btn-bootstrap" class="design-btn">Diseño Bootstrap</button>
+      <button id="btn-material" class="design-btn">Diseño Material UI</button>
+      <button id="btn-chakra" class="design-btn">Diseño Chakra UI</button>
     </div>
     <div class="background-animation">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="glow-orb orb-3"></div>
     </div>
 
     <main class="app-container card shadow-lg p-4 w-100 rounded-4 border-0">
-        <header class="app-header d-flex justify-content-between align-items-center mb-4">
-            <div class="header-info">
-                <h1 class="h3 fw-bold mb-1">Recuerdos</h1>
-                <p id="current-date" class="date-display text-muted small mb-0">Date</p>
-            </div>
-            <div class="header-controls d-flex align-items-center gap-3">
-                <button id="theme-toggle" class="theme-toggle btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 44px; height: 44px;" aria-label="Activar/Desactivar modo oscuro" aria-pressed="false">
-                    <i class="fa-solid fa-moon icon-moon"></i>
-                    <i class="fa-solid fa-sun icon-sun"></i>
-                </button>
-                <div class="stats-container d-flex gap-2">
-                    <div class="stat-box bg-body-tertiary border rounded-3 p-2 text-center flex-grow-1">
-                        <span class="stat-value d-block fs-4 fw-bold text-primary" id="total-tasks">0</span>
-                        <span class="stat-label small text-muted text-uppercase fw-semibold">Total</span>
-                    </div>
-                    <div class="stat-box bg-body-tertiary border rounded-3 p-2 text-center flex-grow-1">
-                        <span class="stat-value d-block fs-4 fw-bold text-primary" id="completed-tasks">0</span>
-                        <span class="stat-label small text-muted text-uppercase fw-semibold">Hecho</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div class="input-section mb-4">
-            <form id="todo-form">
-                <div class="input-wrapper position-relative d-flex align-items-center">
-                    <i class="fa-solid fa-pen input-icon"></i>
-                    <input type="text" id="todo-input" class="form-control form-control-lg rounded-pill border-light bg-body-tertiary shadow-sm" placeholder="¿Qué tareas tienes para hoy?" autocomplete="off"
-                        required>
-                    <button type="submit" class="add-btn btn btn-primary position-absolute rounded-circle shadow-sm" aria-label="Añadir tarea">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </form>
+      <header
+        class="app-header d-flex justify-content-between align-items-center mb-4"
+      >
+        <div class="header-info">
+          <h1 class="h3 fw-bold mb-1">Recuerdos</h1>
+          <p id="current-date" class="date-display text-muted small mb-0">
+            Date
+          </p>
         </div>
-
-        <div class="filters-section d-flex bg-body-tertiary p-1 rounded-pill mb-4 gap-1">
-            <button class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold active" data-filter="all">Todas</button>
-            <button class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold text-muted" data-filter="active">Activas</button>
-            <button class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold text-muted" data-filter="completed">Completadas</button>
-        </div>
-
-        <div class="todo-list-container">
-            <ul id="todo-list" class="todo-list list-group list-group-flush mb-0 ps-0">
-                <!-- Tasks will be dynamically populated here -->
-            </ul>
-
-            <div id="empty-state" class="empty-state text-center text-muted py-5">
-                <div class="empty-icon display-4 mb-3 text-secondary">
-                    <i class="fa-regular fa-calendar-check"></i>
-                </div>
-                <p class="mb-0">Tu mente está despejada. ¡Añade una tarea!</p>
+        <div class="header-controls d-flex align-items-center gap-3">
+          <button
+            id="theme-toggle"
+            class="theme-toggle btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0"
+            style="width: 44px; height: 44px"
+            aria-label="Activar/Desactivar modo oscuro"
+            aria-pressed="false"
+          >
+            <i class="fa-solid fa-moon icon-moon"></i>
+            <i class="fa-solid fa-sun icon-sun"></i>
+          </button>
+          <div class="stats-container d-flex gap-2">
+            <div
+              class="stat-box bg-body-tertiary border rounded-3 p-2 text-center flex-grow-1"
+            >
+              <span
+                class="stat-value d-block fs-4 fw-bold text-primary"
+                id="total-tasks"
+                >0</span
+              >
+              <span
+                class="stat-label small text-muted text-uppercase fw-semibold"
+                >Total</span
+              >
             </div>
+            <div
+              class="stat-box bg-body-tertiary border rounded-3 p-2 text-center flex-grow-1"
+            >
+              <span
+                class="stat-value d-block fs-4 fw-bold text-primary"
+                id="completed-tasks"
+                >0</span
+              >
+              <span
+                class="stat-label small text-muted text-uppercase fw-semibold"
+                >Hecho</span
+              >
+            </div>
+          </div>
         </div>
+      </header>
+
+      <div class="input-section mb-4">
+        <form id="todo-form">
+          <div
+            class="input-wrapper position-relative d-flex align-items-center"
+          >
+            <i class="fa-solid fa-pen input-icon"></i>
+            <input
+              type="text"
+              id="todo-input"
+              class="form-control form-control-lg rounded-pill border-light bg-body-tertiary shadow-sm"
+              placeholder="¿Qué tareas tienes para hoy?"
+              autocomplete="off"
+              required
+            />
+            <button
+              type="submit"
+              class="add-btn btn btn-primary position-absolute rounded-circle shadow-sm"
+              aria-label="Añadir tarea"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        class="filters-section d-flex bg-body-tertiary p-1 rounded-pill mb-4 gap-1"
+      >
+        <button
+          class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold active"
+          data-filter="all"
+        >
+          Todas
+        </button>
+        <button
+          class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold text-muted"
+          data-filter="active"
+        >
+          Activas
+        </button>
+        <button
+          class="filter-btn btn btn-sm rounded-pill flex-grow-1 fw-bold text-muted"
+          data-filter="completed"
+        >
+          Completadas
+        </button>
+      </div>
+
+      <div class="todo-list-container">
+        <ul
+          id="todo-list"
+          class="todo-list list-group list-group-flush mb-0 ps-0"
+        >
+          <!-- Tasks will be dynamically populated here -->
+        </ul>
+
+        <div id="empty-state" class="empty-state text-center text-muted py-5">
+          <div class="empty-icon display-4 mb-3 text-secondary">
+            <i class="fa-regular fa-calendar-check"></i>
+          </div>
+          <p class="mb-0">Tu mente está despejada. ¡Añade una tarea!</p>
+        </div>
+      </div>
     </main>
 
     <script src="js/script.js?v=8"></script>
-</body>
-
+  </body>
 </html>
