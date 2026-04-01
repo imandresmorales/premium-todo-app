@@ -13,12 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnBootstrap = document.getElementById("btn-bootstrap");
   const btnMaterial = document.getElementById("btn-material");
   const btnChakra = document.getElementById("btn-chakra");
+  const btnMantine = document.getElementById("btn-mantine");
   const defaultCss = document.getElementById("default-css");
   const bootstrapCss = document.getElementById("bootstrap-css");
   const bootstrapExtrasCss = document.getElementById("bootstrap-extras-css");
   const materialCss = document.getElementById("material-css");
   const materialExtrasCss = document.getElementById("material-extras-css");
   const chakraExtrasCss = document.getElementById("chakra-extras-css");
+  const mantineExtrasCss = document.getElementById("mantine-extras-css");
 
   // State
   let todos = [];
@@ -192,28 +194,20 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       // Update active state
       filterBtns.forEach((b) => {
-        b.classList.remove("active");
-        if (document.body.classList.contains("bootstrap-mode")) {
-          b.classList.add("text-muted");
-          b.classList.remove("bg-dark", "text-white");
-        } else if (document.body.classList.contains("material-mode")) {
-          b.classList.add("text-muted");
-          b.classList.remove("bg-primary", "text-white");
-        } else if (document.body.classList.contains("chakra-mode")) {
-          b.classList.add("text-muted");
-          b.classList.remove("chakra-active");
-        }
+        b.classList.remove("active", "bg-dark", "text-white", "bg-primary", "chakra-active", "mantine-active");
+        b.classList.add("text-muted");
       });
       btn.classList.add("active");
+      btn.classList.remove("text-muted");
+
       if (document.body.classList.contains("bootstrap-mode")) {
-        btn.classList.remove("text-muted");
         btn.classList.add("bg-dark", "text-white");
       } else if (document.body.classList.contains("material-mode")) {
-        btn.classList.remove("text-muted");
         btn.classList.add("bg-primary", "text-white");
       } else if (document.body.classList.contains("chakra-mode")) {
-        btn.classList.remove("text-muted");
         btn.classList.add("chakra-active");
+      } else if (document.body.classList.contains("mantine-mode")) {
+        btn.classList.add("mantine-active");
       }
 
       // Set current filter
@@ -276,6 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "bootstrap-mode",
       "material-mode",
       "chakra-mode",
+      "mantine-mode",
     );
 
     // Reset styles
@@ -285,12 +280,28 @@ document.addEventListener("DOMContentLoaded", () => {
     materialCss.disabled = true;
     materialExtrasCss.disabled = true;
     chakraExtrasCss.disabled = true;
+    mantineExtrasCss.disabled = true;
 
     // Reset buttons
     btnDefault.classList.remove("active");
     btnBootstrap.classList.remove("active");
     btnMaterial.classList.remove("active");
     btnChakra.classList.remove("active");
+    btnMantine.classList.remove("active");
+
+    // Clean up filter buttons state globally
+    filterBtns.forEach((b) => {
+      b.classList.remove(
+        "bg-dark",
+        "text-white",
+        "bg-primary",
+        "chakra-active",
+        "mantine-active"
+      );
+      if (!b.classList.contains("active")) {
+        b.classList.add("text-muted");
+      }
+    });
 
     if (design === "bootstrap") {
       document.body.classList.add("bootstrap-mode");
@@ -298,14 +309,11 @@ document.addEventListener("DOMContentLoaded", () => {
       bootstrapExtrasCss.disabled = false;
       btnBootstrap.classList.add("active");
 
-      // Update filter buttons appearance for bootstrap
+      // Set styles for active filter in bootstrap
       filterBtns.forEach((b) => {
         if (b.classList.contains("active")) {
           b.classList.add("bg-dark", "text-white");
           b.classList.remove("text-muted");
-        } else {
-          b.classList.add("text-muted");
-          b.classList.remove("bg-dark", "text-white");
         }
       });
     } else if (design === "material") {
@@ -314,14 +322,11 @@ document.addEventListener("DOMContentLoaded", () => {
       materialExtrasCss.disabled = false;
       btnMaterial.classList.add("active");
 
-      // Update filter buttons for material
+      // Set styles for active filter in material
       filterBtns.forEach((b) => {
         if (b.classList.contains("active")) {
           b.classList.add("bg-primary", "text-white");
           b.classList.remove("text-muted");
-        } else {
-          b.classList.add("text-muted");
-          b.classList.remove("bg-primary", "text-white");
         }
       });
     } else if (design === "chakra") {
@@ -329,29 +334,30 @@ document.addEventListener("DOMContentLoaded", () => {
       chakraExtrasCss.disabled = false;
       btnChakra.classList.add("active");
 
-      // Update filter buttons for chakra
+      // Set styles for active filter in chakra
       filterBtns.forEach((b) => {
         if (b.classList.contains("active")) {
           b.classList.add("chakra-active");
           b.classList.remove("text-muted");
-        } else {
-          b.classList.add("text-muted");
-          b.classList.remove("chakra-active");
+        }
+      });
+    } else if (design === "mantine") {
+      document.body.classList.add("mantine-mode");
+      bootstrapCss.disabled = false; // Using Bootstrap as base structural framework
+      mantineExtrasCss.disabled = false;
+      btnMantine.classList.add("active");
+
+      // Set styles for active filter in mantine
+      filterBtns.forEach((b) => {
+        if (b.classList.contains("active")) {
+          b.classList.add("mantine-active");
+          b.classList.remove("text-muted");
         }
       });
     } else {
       defaultCss.disabled = false;
       btnDefault.classList.add("active");
-
-      // Remove specific utility classes from filter buttons
-      filterBtns.forEach((b) => {
-        b.classList.remove(
-          "bg-dark",
-          "text-white",
-          "bg-primary",
-          "chakra-active",
-        );
-      });
+      // Default design doesn't use the text-muted logic the same way, but it works fine generically.
     }
   };
 
@@ -373,6 +379,11 @@ document.addEventListener("DOMContentLoaded", () => {
   btnChakra.addEventListener("click", () => {
     setDesign("chakra");
     localStorage.setItem("serenoDesign", "chakra");
+  });
+
+  btnMantine.addEventListener("click", () => {
+    setDesign("mantine");
+    localStorage.setItem("serenoDesign", "mantine");
   });
 
   // Utility to prevent XSS
