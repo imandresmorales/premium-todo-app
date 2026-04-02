@@ -145,9 +145,46 @@ body.chakra-mode .stats-container {
   display: flex;
   gap: 0.5rem;
 }
+
 body.chakra-mode .stat-box {
-  display: none;
-} /* Hide stats for cleaner Chakra aesthetic, or make them tiny tags */
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-gray-100) !important;
+  border: 1px solid var(--c-gray-200) !important;
+  border-radius: 0.375rem !important;
+  padding: 0.5rem 0.75rem !important;
+  min-width: 60px;
+}
+
+body.chakra-mode.dark-theme .stat-box {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.chakra-mode .stat-box .stat-value {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  color: var(--c-teal-500) !important;
+  line-height: 1 !important;
+}
+
+body.chakra-mode.dark-theme .stat-box .stat-value {
+  color: var(--c-teal-300) !important;
+}
+
+body.chakra-mode .stat-box .stat-label {
+  font-size: 0.65rem !important;
+  text-transform: uppercase;
+  font-weight: 600 !important;
+  color: var(--c-gray-500) !important;
+  margin-top: 0.25rem;
+}
+
+body.chakra-mode.dark-theme .stat-box .stat-label {
+  color: var(--c-gray-400) !important;
+}
 
 /* Form Input */
 body.chakra-mode .input-section {
