@@ -22,6 +22,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const chakraExtrasCss = document.getElementById("chakra-extras-css");
   const mantineExtrasCss = document.getElementById("mantine-extras-css");
 
+  // Aria Live Region for accessibility announcements
+  const ariaLive = document.createElement("div");
+  ariaLive.setAttribute("aria-live", "polite");
+  // Visually hidden CSS properties
+  ariaLive.style.position = "absolute";
+  ariaLive.style.width = "1px";
+  ariaLive.style.height = "1px";
+  ariaLive.style.padding = "0";
+  ariaLive.style.margin = "-1px";
+  ariaLive.style.overflow = "hidden";
+  ariaLive.style.clip = "rect(0, 0, 0, 0)";
+  ariaLive.style.whiteSpace = "nowrap";
+  ariaLive.style.border = "0";
+  document.body.appendChild(ariaLive);
+
+  const announce = (message) => {
+    ariaLive.textContent = message;
+    setTimeout(() => {
+      ariaLive.textContent = "";
+    }, 3000);
+  };
+
   // State
   let todos = [];
   try {
@@ -113,16 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let checkboxMarkup = `
                 <div class="checkbox-wrapper">
-                    <input type="checkbox" id="check-${todo.id}" class="todo-checkbox form-check-input mt-0" ${todo.completed ? "checked" : ""}>
-                    <label for="check-${todo.id}" class="checkbox-custom"></label>
+                    <input type="checkbox" id="check-${todo.id}" class="todo-checkbox form-check-input mt-0" aria-labelledby="text-${todo.id}" ${todo.completed ? "checked" : ""}>
+                    <label for="check-${todo.id}" class="checkbox-custom" aria-hidden="true"></label>
                 </div>
             `;
 
       li.innerHTML = `
                 ${checkboxMarkup}
-                <span class="todo-text text-break fw-semibold">${escapeHTML(todo.text)}</span>
-                <button class="delete-btn btn btn-sm rounded" aria-label="Eliminar tarea">
-                    <i class="fa-regular fa-trash-can"></i>
+                <span id="text-${todo.id}" class="todo-text text-break fw-semibold">${escapeHTML(todo.text)}</span>
+                <button class="delete-btn btn btn-sm rounded" aria-label="Eliminar tarea: ${escapeHTML(todo.text)}">
+                    <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
                 </button>
             `;
 
@@ -153,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     todos.unshift(newTodo);
     saveTodos();
+    announce("Tarea añadida: " + text);
 
     // If filtered list doesn't show new item, switch to 'all'
     if (currentFilter === "completed") {
@@ -164,9 +187,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle Todo
   const toggleTodo = (id) => {
-    todos = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-    );
+    todos = todos.map((todo) => {
+      if (todo.id === id) {
+        announce(
+          !todo.completed ? "Tarea completada: " + todo.text : "Tarea reanudada: " + todo.text
+        );
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
     saveTodos();
 
     // Re-render if filter is active
@@ -179,6 +208,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Delete Todo
   const deleteTodo = (id, element) => {
+    const todoToDelete = todos.find(t => t.id === id);
+    if(todoToDelete) announce("Tarea eliminada: " + todoToDelete.text);
+
     element.classList.add("deleting");
 
     // Wait for animation to finish

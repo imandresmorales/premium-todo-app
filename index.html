@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sereno es una aplicación premium y sencilla para gestionar tus tareas diarias, enfocada en la productividad y un diseño elegante." />
+    <!-- Etiquetas Open Graph para compartir en redes sociales -->
+    <meta property="og:title" content="Sereno - Tu Espacio de Tareas" />
+    <meta property="og:description" content="Gestiona y organiza tus tareas con diseños personalizables y una experiencia de usuario estenográfica." />
+    <meta property="og:type" content="website" />
     <title>Sereno - Tu Espacio de Tareas</title>
     <link id="default-css" rel="stylesheet" href="css/style.css?v=9" />
     <link
@@ -162,7 +167,8 @@
           <div
             class="input-wrapper position-relative d-flex align-items-center"
           >
-            <i class="fa-solid fa-pen input-icon"></i>
+            <i class="fa-solid fa-pen input-icon" aria-hidden="true"></i>
+            <label for="todo-input" class="visually-hidden">Escribe una nueva tarea</label>
             <input
               type="text"
               id="todo-input"
