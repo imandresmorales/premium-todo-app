@@ -9,7 +9,7 @@
     <meta property="og:description" content="Gestiona y organiza tus tareas con diseños personalizables y una experiencia de usuario estenográfica." />
     <meta property="og:type" content="website" />
     <title>Sereno - Tu Espacio de Tareas</title>
-    <link id="default-css" rel="stylesheet" href="css/style.css?v=9" />
+    <link id="default-css" rel="stylesheet" href="css/style.css?v=11" />
     <link
       id="bootstrap-css"
       rel="stylesheet"
@@ -21,7 +21,7 @@
     <link
       id="bootstrap-extras-css"
       rel="stylesheet"
-      href="css/bootstrap-extras.css?v=9"
+      href="css/bootstrap-extras.css?v=10"
       disabled
     />
     <!-- Material UI (Bootswatch Materia for Bootstrap classes compatibility) -->
@@ -36,21 +36,21 @@
     <link
       id="material-extras-css"
       rel="stylesheet"
-      href="css/material-extras.css?v=9"
+      href="css/material-extras.css?v=10"
       disabled
     />
     <!-- Chakra UI (Custom CSS simulation) -->
     <link
       id="chakra-extras-css"
       rel="stylesheet"
-      href="css/chakra-extras.css?v=9"
+      href="css/chakra-extras.css?v=10"
       disabled
     />
     <!-- Mantine UI (Custom CSS simulation) -->
     <link
       id="mantine-extras-css"
       rel="stylesheet"
-      href="css/mantine-extras.css?v=9"
+      href="css/mantine-extras.css?v=10"
       disabled
     />
     <link
@@ -65,17 +65,49 @@
       crossorigin="anonymous"
     />
     <style>
-      .design-btn-container {
+      .design-nav {
         position: absolute;
-        top: 15px;
+        top: 0;
         left: 0;
         width: 100%;
-        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         z-index: 1000;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav-header {
+        display: none;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-title {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        color: #333;
+        font-size: 16px;
+      }
+      .nav-toggle {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        padding: 0;
+      }
+      .design-btn-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
       }
       .design-btn {
         padding: 8px 16px;
-        margin: 0 4px;
         border: 1px solid #666;
         border-radius: 20px;
         background: #fff;
@@ -86,24 +118,71 @@
         font-weight: 600;
         transition: all 0.3s;
       }
+      .design-btn:hover {
+        background: #f0f0f0;
+      }
       .design-btn.active {
         background: #333;
         color: #fff;
         border-color: #333;
       }
+
+      /* Dark mode styles for nav */
+      body.dark-theme .design-nav {
+        background: rgba(30, 30, 30, 0.9);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+      body.dark-theme .nav-title,
+      body.dark-theme .nav-toggle {
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .design-nav {
+          flex-direction: column;
+          padding: 15px 20px;
+        }
+        .nav-header {
+          display: flex;
+        }
+        .design-btn-container {
+          flex-direction: column;
+          width: 100%;
+          max-height: 0;
+          overflow: hidden;
+          gap: 10px;
+          margin-top: 0;
+        }
+        .design-btn-container.show {
+          max-height: 300px;
+          margin-top: 15px;
+        }
+        .design-btn {
+          width: 100%;
+          border-radius: 8px;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <div class="design-btn-container">
-      <button id="btn-default" class="design-btn active">
-        Diseño por Defecto
-      </button>
-      <button id="btn-bootstrap" class="design-btn">Diseño Bootstrap</button>
-      <button id="btn-material" class="design-btn">Diseño Material UI</button>
-      <button id="btn-chakra" class="design-btn">Diseño Chakra UI</button>
-      <button id="btn-mantine" class="design-btn">Diseño Mantine UI</button>
-    </div>
+    <nav class="design-nav">
+      <div class="nav-header">
+        <span class="nav-title">Opciones de Diseño</span>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú de diseños">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+      <div id="nav-menu" class="design-btn-container">
+        <button id="btn-default" class="design-btn active">
+          Diseño por Defecto
+        </button>
+        <button id="btn-bootstrap" class="design-btn">Diseño Bootstrap</button>
+        <button id="btn-material" class="design-btn">Diseño Material UI</button>
+        <button id="btn-chakra" class="design-btn">Diseño Chakra UI</button>
+        <button id="btn-mantine" class="design-btn">Diseño Mantine UI</button>
+      </div>
+    </nav>
     <div class="background-animation">
       <div class="glow-orb orb-1"></div>
       <div class="glow-orb orb-2"></div>
@@ -228,6 +307,6 @@
       </div>
     </main>
 
-    <script src="js/script.js?v=9"></script>
+    <script src="js/script.js?v=10"></script>
   </body>
 </html>

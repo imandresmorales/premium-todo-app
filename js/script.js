@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const materialExtrasCss = document.getElementById("material-extras-css");
   const chakraExtrasCss = document.getElementById("chakra-extras-css");
   const mantineExtrasCss = document.getElementById("mantine-extras-css");
+  const navToggle = document.getElementById("nav-toggle");
+  const navMenu = document.getElementById("nav-menu");
 
   // Aria Live Region for accessibility announcements
   const ariaLive = document.createElement("div");
@@ -432,6 +434,29 @@ document.addEventListener("DOMContentLoaded", () => {
         })[tag] || tag,
     );
   };
+
+  // Mobile Nav Toggle
+  if (navToggle && navMenu) {
+    navToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle("show");
+    });
+    
+    // Close menu when a design option is selected on mobile
+    const designBtns = [btnDefault, btnBootstrap, btnMaterial, btnChakra, btnMantine];
+    designBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        navMenu.classList.remove("show");
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+        navMenu.classList.remove("show");
+      }
+    });
+  }
 
   // Initialize
   initTheme();
